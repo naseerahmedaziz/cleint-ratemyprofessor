@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-overflow-style: none;
+    background-color: #f6f5f7;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+.home {
+    height: 100vh;
+}
+.ant-btn-lg {
+    height: 47px !important;
+}
+.search {
+    padding-top: 5%;
+}
+
+.home div:first-child {
+    padding: 0 6%;
+}
+.home div:last-child {
+    padding: 0 5%;
+}
+.title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.678em !important;
+    font-weight: 900 !important;
+    color: #000;
+}
+.title-small {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700 !important;
+}
+
+.fixed-text {
+    display: inline-block;
+    background: linear-gradient(to right, black, #FF416C); /* Add your preferred gradient colors */
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.dynamic-text {
+    display: block;
+    padding: 0 6% !important;
+}
+
+.dynamic-text span div{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.otpbox {
+    padding: 30px 0;
+    color: #000000;
+}
+.d-none {
+    display: none;
+}
+.background {
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    position: fixed;
+}
+@keyframes shake1 {
+    from {
+        top: 63vh;
+        left: 22vw;
+    }
+    to {
+        top: 68vh;
+        left: 25vw;
+    }
+}
+@keyframes shake3 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(280deg);
+    }
+}
+.img1 {
+    position: relative;
+    animation: shake1 2.5s ease-in-out infinite alternate-reverse;
+}
+@keyframes shake2 {
+    from {
+        top: 20vh;
+        left: 49vw;
+    }
+    to {
+        top: 13vh;
+        left: 55vw;
+    }
+}
+.img2 {
+    position: relative;
+    animation: shake2 3.5s ease-in-out infinite alternate-reverse;
+}
+.img3 {
+    position: relative;
+    top: 55vh;
+    left: 37vw;
+    animation: shake3 5.5s ease-in-out infinite alternate-reverse;
+}
+.img4 {
+    position: relative;
+    animation: shake4 9s ease-in-out infinite alternate-reverse;
+}
+.img5 {
+    position: relative;
+    animation: shake5 3s ease-in-out infinite alternate-reverse;
+}
+@keyframes shake5 {
+    from {
+        top: 65vh;
+        left: 37vw;
+        transform: scale(0.5);
+    }
+    to {
+        top: 69vh;
+        transform: scale(0.8);
+        left: 43vw;
+    }
+}
+@keyframes shake4 {
+    from {
+        top: 10vh;
+        left: -25vw;
+        transform: rotate(-180deg);
+    }
+    to {
+        top: 19vh;
+        left: -5vw;
+        transform: rotate(180deg);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .home {
+        height: 40vh;
+    }
+    .home div:last-child {
+        position: fixed;
+        top: 60%;
+    }
+    .mobile-res {
+        width: 308px;
+    }
+}
+
+ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+    box-shadow: none !important;
+}
+
+.utab {
+    background: linear-gradient(to right, black, #FF416C);
+    padding: 15px;
+    font-family: "Montserrat", sans-serif;
+    color: #f6f5f7;
+    font-weight: 700;
+    font-size: 20px;
+    padding-left: 70px;
+    position: relative;
+  }
+
+  .ustab {
+    background: linear-gradient(to right, black, #FF416C);
+    padding: 15px;
+    font-family: "Montserrat", sans-serif;
+    color: #f6f5f7;
+    font-weight: 700;
+    font-size: 20px;
+    padding-left: 70px;
+    position: relative;
+  }
+
+  .logout-button {
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: transparent;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    padding: 6px 25px;
+    transform: translateY(-50%) scale(1); /* Set initial scale */
+}
+
+.logout-button:hover {
+    transform: translateY(-55%) scale(1); /* Maintain the initial scale on hover */
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+button:focus {
+	outline: none;
+}
+
+.back-buttons {
+	position: absolute;
+	top: 7px;
+	left: 20px;
+	cursor: pointer;
+	width: 40px; /* Adjust the width as needed */
+	height: 40px; /* Adjust the height as needed */
+	z-index: 999;
+  }
+
+.ant-btn-primary {
+    background: linear-gradient(to right, black, #FF416C) !important;
+    border-color: linear-gradient(to right, black, #FF416C) !important;
+    color: #ffffff !important; /* Light gray */
+}
+
+.ant-input-affix-wrapper, .ant-input {
+    border-color: #000000 !important;
+}

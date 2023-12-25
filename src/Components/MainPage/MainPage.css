@@ -1,0 +1,122 @@
+.ars-mainpage-cont{
+  height: 100%;
+  width: 100vw;
+  /* display: flex; */
+  flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+  background-color: #f6f7f5;
+  background-image: url('https://images.unsplash.com/photo-1503198515498-d0bd9ed16902?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main-page {
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  height: calc(100% - 100px);
+  overflow: auto;
+  width: 100%;
+}
+  
+.option {
+  background: #FF416C;
+  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+  background: linear-gradient(to right, black, #FF416C);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+              0 10px 10px rgba(0,0,0,0.22);
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  margin: 20px;
+}
+
+.option h2 {
+  font-weight: bold;
+}
+
+.option p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  margin: 20px 0 30px;
+}
+
+.buttons {
+  border-radius: 20px;
+  border: 1px solid #FF4B2B;
+  background-color: transparent;
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  cursor: pointer;
+
+}
+
+.buttons:hover {
+  transform: scale(1.05);
+}
+
+.buttons:focus {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.welcome-container {
+  text-align: center;
+}
+
+.welcome-container h1 {
+  font-size: 100px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background: #ffffff;
+  /* background: linear-gradient(to left, black, #FF416C); Add your preferred gradient colors */
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.welcome-container h2 {
+  font-size: 50px;
+  font-weight: bold;
+  background: #ffffff;
+  /* background: linear-gradient(to left, black, #FF416C); Add your preferred gradient colors */
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.bottom-paragraph {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #ffffff; /* Add your preferred color */
+  text-align: center;
+  /* margin-top: -9px; */
+}
+
+/* .mtab {
+  background: linear-gradient(to right, black, #FF416C);
+  padding: 22px;
+  font-family: "Montserrat", sans-serif;
+  color: #f6f5f7;
+  font-weight: 700;
+  font-size: 20px;
+  padding-left: 50px;
+  position: relative;
+} */

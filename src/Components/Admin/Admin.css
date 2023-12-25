@@ -1,0 +1,90 @@
+.admin-container {
+  width: 80%;
+  margin: 0px auto;
+  padding: 140px 0;
+}
+
+.requests-container {
+  margin: 20px 0;
+}
+
+.prof-request {
+  width: 100%;
+  padding: 40px;
+  border: 4px solid #000;
+  text-transform: uppercase;
+  margin: 16px 0;
+}
+
+.prof-request h3 {
+  margin: 12px 0 !important;
+}
+
+.prof-request p {
+  font-family: "proxima_nova_rgbold";
+  color: rgb(195, 195, 195);
+}
+
+.prof-request-controls {
+  margin: 20px 0 0px 0;
+}
+
+.prof-request-controls .button {
+  padding: 16px 24px;
+  margin-right: 10px;
+  border: 2px solid #000;
+  text-transform: uppercase;
+  font-family: "proxima_nova_rgbold";
+  cursor: pointer;
+}
+
+.prof-request-controls .approve-btn {
+  background: #000;
+  color: #fff;
+}
+
+.prof-request-controls .decline-btn {
+  background: #fff;
+}
+
+.aatab {
+  background: linear-gradient(to right, black, #FF416C);
+  padding: 15px;
+  font-family: "Montserrat", sans-serif;
+  color: #f6f5f7;
+  font-weight: 700;
+  font-size: 20px;
+  padding-left: 70px;
+  position: relative;
+}
+
+.logout-button {
+  border-radius: 20px;
+  border: 1px solid #FF4B2B;
+  background-color: transparent;
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  padding: 6px 25px;
+  transform: translateY(-50%) scale(1); /* Set initial scale */
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  transform: translateY(-55%) scale(1); /* Maintain the initial scale on hover */
+}
+
+button:active {
+transform: scale(0.95);
+}
+
+button:focus {
+outline: none;
+}
