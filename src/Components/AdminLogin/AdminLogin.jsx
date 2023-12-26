@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import back2 from "../Assets/back2.png";
+import axios from 'axios';
+
 
 const AdminLogin = () => {
   const [loginemail, loginsetEmail] = useState('');
@@ -14,14 +16,34 @@ const AdminLogin = () => {
 
   const handleLogin = () => {
     // Check if the provided credentials are correct
-    if (loginemail === 'admin@admin.com' && loginpassword === 'Pakistan@2') {
-      console.log('Admin login successful. Navigating to /profile');
+    // if (loginemail === 'admin@admin.com' && loginpassword === 'Pakistan@2') {
+    //   console.log('Admin login successful. Navigating to /profile');
+    //   toast.success('Success!');
+    //   navigate('/admin');
+    // } else {
+    //   toast.error('Invalid email or password');
+    //   return;
+    // }
+    axios.post('http://localhost:3000/adminLogin', {
+    email: loginemail,
+    password: loginpassword
+  })
+  .then((response) => {
+    // Handle the response data
+    // For example, if the login was successful, navigate to the admin page
+    if (response.data.success) {
+      console.log('Admin login successful. Navigating to /admin');
       toast.success('Success!');
       navigate('/admin');
     } else {
       toast.error('Invalid email or password');
-      return;
     }
+  })
+  .catch((error) => {
+    // Handle the error
+    toast.error('An error occurred while logging in');
+  });
+
   };
 
   return (
@@ -43,7 +65,7 @@ const AdminLogin = () => {
               <a href="#" className="Adminsocial"><i className="fab fa-linkedin-in"></i></a>
             </div>
             <span>or use your account</span>
-            <input type="email" placeholder="Email" value={loginemail} onChange={(e) => loginsetEmail(e.target.value)}/>
+            <input type="text" placeholder="Email" value={loginemail} onChange={(e) => loginsetEmail(e.target.value)}/>
             <input type="password" placeholder="Password" value={loginpassword} onChange={(e) => loginsetPassword(e.target.value)}/>
             <a href="#">Forgot your password?</a>
             {error && <div className="Adminerror-message">{error}</div>}

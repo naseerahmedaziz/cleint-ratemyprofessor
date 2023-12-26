@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import back2 from "../Assets/back2.png";
+import axios from 'axios';
 
 const LoginSignup = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -41,26 +42,48 @@ const LoginSignup = () => {
     }*/
   };
 
+  
+  
   const handleSignUp = () => {
     if (!firstName || !lastName || !signemail || !signpassword) {
       toast.error('All fields are required');
       return;
     }
-
+  
     if (!validateEmail(signemail)) {
       toast.error('Invalid email format');
       return;
     }
-
+  
     if (!validatePassword(signpassword)) {
       toast.error(
         'Password should be at least 8 characters long and contain one uppercase, one lowercase, a number, and a special character');
       return;
     }
-    toast.success('Success!');
-    
-    setIsSignUp(false);
-
+  
+    // Call the signup API
+    axios.post('http://localhost:5000/users/signup', {
+      firstName,
+      lastName,
+      email: signemail,
+      password: signpassword
+    })
+    .then((response) => {
+      // Handle the response data
+      // For example, if the signup was successful, navigate to the profile page
+      if (response.data.success) {
+        console.log('SignUp Successful');
+        navigate('/mainpage');
+      } else {
+        toast.error(response.data.message);
+      }
+    })
+    .catch((error) => {
+      // Handle the error
+      toast.error('User Already Exists');
+    });
+  
+    //setIsSignUp(false);
   };
 
   const sign = () => {
