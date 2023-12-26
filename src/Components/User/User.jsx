@@ -1,5 +1,6 @@
 // Import necessary components and styles
 import BackDrop from '../backdrop';
+import profile from "../Assets/profile.png";
 import './User.css';
 import React from "react";
 import { Row, Col, Input, Button, Typography, notification } from "antd";
@@ -50,6 +51,11 @@ function SearchBarHome() {
         <div className="ars-user-cont">
         <div className="utab">
             Rate My Teacher (RMT)
+            <img
+      src={profile}
+      alt="Profile"
+      className="profile-buttons"
+      onClick={() => navigate('/userprofile')} />
             <Link to="/login">
                 <button className="logout-button">
                     Logout

@@ -34,11 +34,13 @@ const ProfDetail = (props) => {
             style={{
                 maxWidth: 650,
                 width: "80%",
+                marginTop: "5%",
                 margin: "5% auto 0 auto",
                 padding: 20,
                 border: "1px solid #eeeeee",
                 borderRadius: 10,
                 background: "#ffffff",
+                overflow: "auto",
                 boxShadow: "5px 5px 15px 0px #cdcdcd91",
             }}
         >
@@ -47,7 +49,7 @@ const ProfDetail = (props) => {
                     <Space size="large">
                         <Button
                             type="dashed"
-                            onClick={() => (window.location.href = "/search")}
+                            onClick={() => (window.location.href = "/usersearch")}
                         >
                             <ArrowLeftOutlined />
                         </Button>

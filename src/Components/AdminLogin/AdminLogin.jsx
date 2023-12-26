@@ -51,7 +51,6 @@ const AdminLogin = () => {
     }
   })
   .catch((error) => {
-    // Handle the error
     toast.error('An error occurred while logging in');
     console.error('Error during login:', error); // Logging the error using console.error for emphasis or with more context
   });

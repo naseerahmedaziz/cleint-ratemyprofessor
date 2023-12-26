@@ -117,7 +117,7 @@ const LoginSignup = () => {
       toast.error('User Already Exists');
     });
   
-    //setIsSignUp(false);
+    
   };
 
   const sign = () => {

@@ -236,3 +236,13 @@ button:focus {
 .ant-input-affix-wrapper, .ant-input {
     border-color: #000000 !important;
 }
+
+.profile-buttons {
+	position: absolute;
+	top: 7px;
+	left: 87%;
+	cursor: pointer;
+	width: 40px; /* Adjust the width as needed */
+	height: 40px; /* Adjust the height as needed */
+	z-index: 999;
+  }

@@ -101,13 +101,18 @@ const ProfMenu = ({ match, location }) => {
     }, []);
 
     return (
-        <React.Fragment>
-            <BackDrop />
-            <ProfDetail FID={id} />
-            <ProfRating FID={id} />
-            <ProfReview FID={id} />
-        </React.Fragment>
-    );
+        <div
+          style={{
+            height: "100vh", // Set the height to 100% of the viewport height
+            overflowY: "auto", // Enable vertical scrolling
+          }}
+        >
+          <BackDrop />
+          <ProfDetail FID={id} />
+          <ProfRating FID={id} />
+          <ProfReview FID={id} />
+        </div>
+      );
 };
 
 export default ProfMenu;
