@@ -158,6 +158,7 @@ const mockApiCall = () => {
                     border: "1px solid #eeeeee",
                     borderRadius: 10,
                     background: "#ffffff",
+                    overflow: "auto",
                     boxShadow: "5px 5px 15px 0px #cdcdcd91",
                 }}
             >

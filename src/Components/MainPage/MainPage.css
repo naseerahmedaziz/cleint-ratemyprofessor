@@ -10,6 +10,7 @@
   background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
+  overflow: auto;
 }
 
 .main-page {

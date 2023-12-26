@@ -7,6 +7,7 @@ import AdminLogin from './Components/AdminLogin/AdminLogin';
 import Admin from './Components/Admin/Admin';
 import Usersearch from './Components/User/Usersearch';
 import ProfMenu from './Components/Teacher/Teacher';
+import UserProfile from './Components/UserProfile/UserProfile';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/user" element={<User />} />
         <Route path="/usersearch" element={<Usersearch />} />
+        <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/ID/:id" element={<ProfMenu />} />
         <Route path="/*" element={<Navigate to="/mainpage" />} />
       </Routes>

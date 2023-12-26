@@ -44,7 +44,8 @@ const LoginSignup = () => {
 
   
   
-  const handleSignUp = () => {
+  const handleSignUp = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
     if (!firstName || !lastName || !signemail || !signpassword) {
       toast.error('All fields are required');
       return;
@@ -62,7 +63,7 @@ const LoginSignup = () => {
     }
   
     // Call the signup API
-    axios.post('http://localhost:5000/users/signup', {
+    axios.post('http://localhost:3000/users/signup', {
       firstName,
       lastName,
       email: signemail,
@@ -73,7 +74,7 @@ const LoginSignup = () => {
       // For example, if the signup was successful, navigate to the profile page
       if (response.data.success) {
         console.log('SignUp Successful');
-        navigate('/mainpage');
+        setIsSignUp(false);
       } else {
         toast.error(response.data.message);
       }
@@ -83,7 +84,7 @@ const LoginSignup = () => {
       toast.error('User Already Exists');
     });
   
-    //setIsSignUp(false);
+    
   };
 
   const sign = () => {
@@ -120,7 +121,7 @@ const LoginSignup = () => {
             <input type="password" placeholder="Password" value={signpassword} onChange={(e) => signsetPassword(e.target.value)}/>
             {error && <div className="Usererror-message">{error}</div>}
             {success && <div className="Usersuccess-message">{success}</div>}
-            <button className="but" onClick={handleSignUp}>Sign Up</button>
+            <button className="but" onClick={(e) => handleSignUp(e)}>Sign Up</button>
           </form>
         </div>
 

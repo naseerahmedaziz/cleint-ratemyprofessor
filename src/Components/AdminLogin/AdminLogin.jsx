@@ -14,7 +14,9 @@ const AdminLogin = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log('handleLogin called');
     // Check if the provided credentials are correct
     // if (loginemail === 'admin@admin.com' && loginpassword === 'Pakistan@2') {
     //   console.log('Admin login successful. Navigating to /profile');
@@ -24,24 +26,23 @@ const AdminLogin = () => {
     //   toast.error('Invalid email or password');
     //   return;
     // }
-    axios.post('http://localhost:3000/adminLogin', {
-    email: loginemail,
-    password: loginpassword
+    axios.post('http://localhost:3000/admin/adminLogin', {
+      email: loginemail,
+      password: loginpassword
   })
   .then((response) => {
-    // Handle the response data
-    // For example, if the login was successful, navigate to the admin page
-    if (response.data.success) {
+    console.log("response", response, response.status);
+    if (response.status === 200) {
       console.log('Admin login successful. Navigating to /admin');
       toast.success('Success!');
       navigate('/admin');
     } else {
-      toast.error('Invalid email or password');
+      toast.error('Invalid email or password', response);
     }
   })
   .catch((error) => {
-    // Handle the error
     toast.error('An error occurred while logging in');
+    console.error('Error during login:', error); // Logging the error using console.error for emphasis or with more context
   });
 
   };
@@ -70,7 +71,7 @@ const AdminLogin = () => {
             <a href="#">Forgot your password?</a>
             {error && <div className="Adminerror-message">{error}</div>}
             {success && <div className="Adminsuccess-message">{success}</div>}
-            <button className="but" onClick={handleLogin}>Login</button>
+            <button className="but" onClick={(e) => handleLogin(e)}>Login</button>
           </form>
       </div>
     </div>
