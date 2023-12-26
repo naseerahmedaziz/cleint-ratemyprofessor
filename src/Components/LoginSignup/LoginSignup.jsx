@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import back2 from "../Assets/back2.png";
 import axios from 'axios';
+import store from './../redux/store'
 
 const LoginSignup = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -28,23 +29,49 @@ const LoginSignup = () => {
     return passwordRegex.test(signpassword);
   };
 
-  const handleLogin = () => {
-  
-    /*Log values to check
-    console.log('Email:', loginemail);
-    console.log('Password:', loginpassword);
-  
-    if (loginemail === 'admin@admin.com' && loginpassword === 'Pakistan@2') {
-      console.log('Login successful. Navigating to /profile');
-      navigate('/profile');
-    } else {
-      console.log('Login failed');
-    }*/
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (!loginemail || !loginpassword) {
+      toast.error('All fields are required');
+      return;
+    }
+    if (!validateEmail(loginemail)) {
+      toast.error('Invalid email format');
+      return;
+    }
+    if (!validatePassword(loginpassword)) {
+      toast.error(
+        'Password should be at least 8 characters long and contain one uppercase, one lowercase, a number, and a special character');
+      return;
+    }
+    // Call the signup API
+    axios.post('http://localhost:3000/users/signin', {
+      email: loginemail,
+      password: loginpassword
+    })
+    .then((response) => {
+      // Handle the response data
+      // For example, if the signup was successful, navigate to the profile page
+      if (response.data.success) {
+        console.log('Login Successful');
+        const token = response.data.token;
+        store.dispatch({ type: 'SAVE_TOKEN', payload: token }); 
+        navigate('/user');
+      } else {
+        toast.error(response.data.message);
+      }
+    })
+    .catch((error) => {
+      // Handle the error
+      console.log(error)
+      // toast.error('User Already Exists');
+    });
   };
 
   
   
-  const handleSignUp = () => {
+  const handleSignUp = (e) => {
+    e.preventDefault();
     if (!firstName || !lastName || !signemail || !signpassword) {
       toast.error('All fields are required');
       return;
@@ -62,7 +89,11 @@ const LoginSignup = () => {
     }
   
     // Call the signup API
-    axios.post('http://localhost:5000/users/signup', {
+    console.log(firstName)
+    console.log(lastName)
+    console.log(signemail)
+    console.log(signpassword)
+    axios.post('http://localhost:3000/users/signup', {
       firstName,
       lastName,
       email: signemail,
@@ -71,15 +102,18 @@ const LoginSignup = () => {
     .then((response) => {
       // Handle the response data
       // For example, if the signup was successful, navigate to the profile page
-      if (response.data.success) {
+      if (response.statusText == "Created") {
         console.log('SignUp Successful');
-        navigate('/mainpage');
+        navigate('/user');
+        const token = response.data.token; // Assuming the token is in response.data.token
+        store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // 
       } else {
         toast.error(response.data.message);
       }
     })
     .catch((error) => {
       // Handle the error
+      console.log("Sdfds")
       toast.error('User Already Exists');
     });
   
@@ -120,7 +154,7 @@ const LoginSignup = () => {
             <input type="password" placeholder="Password" value={signpassword} onChange={(e) => signsetPassword(e.target.value)}/>
             {error && <div className="Usererror-message">{error}</div>}
             {success && <div className="Usersuccess-message">{success}</div>}
-            <button className="but" onClick={handleSignUp}>Sign Up</button>
+            <button className="but" onClick={(e) => handleSignUp(e)}>Sign Up</button>
           </form>
         </div>
 
@@ -136,7 +170,7 @@ const LoginSignup = () => {
             <input type="email" placeholder="Email" value={loginemail} onChange={(e) => loginsetEmail(e.target.value)}/>
             <input type="password" placeholder="Password" value={loginpassword} onChange={(e) => loginsetPassword(e.target.value)}/>
             <a href="#">Forgot your password?</a>
-            <button className="but" onClick={handleLogin}>Login</button>
+            <button className="but" onClick={(e) => handleLogin(e)}>Login</button>
           </form>
         </div>
 

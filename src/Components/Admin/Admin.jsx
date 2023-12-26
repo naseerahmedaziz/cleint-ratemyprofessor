@@ -19,11 +19,11 @@ const Admin = () => {
 	}, []);
 	const getProfs = () => {
 		axios
-			.get("http://localhost:5000/profs")
+			.get("http://localhost:3000/admin/getTeachers")
 			.then((response) => {
 				const data = response.data;
 				setProfs(data);
-				console.log(profs);
+				console.log(response);
 			})
 			.catch((error) => {
 				if (!error.response) {
@@ -69,13 +69,14 @@ const Admin = () => {
 								? profs.map((prof) => (
 										<div
 											className="prof-request"
-											key={`${prof.id}${prof.fname}`}
+											key={`${prof.id}${prof.name}`}
 										>
 											<div className="prof-name">
 												<h1>
-													{prof.fname} {prof.lname}
+													{prof.name}
 												</h1>
-												<h3>{prof.institution}</h3>
+												<h3>{prof.subject}</h3>
+												<h4>{prof.email}</h4>
 												<div className="prof-request-controls">
 													<button
 														className="button approve-btn"

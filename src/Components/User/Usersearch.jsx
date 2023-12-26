@@ -6,6 +6,7 @@ import { SearchOutlined, UserOutlined } from "@ant-design/icons";
 import './User.css';
 import back from "../Assets/back.png";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const { Search } = Input;
 
@@ -24,10 +25,20 @@ const SearchFullPage = (props) => {
         // Replace this with your actual API call
         setTimeout(() => {
             setLoading(false);
-            setData([
-                { FID: 1, name: "Professor A", department: "Computer Science", image: back },
-                { FID: 2, name: "Professor B", department: "Physics", image: back },
-            ]);
+            axios
+			.get("http://localhost:3000/admin/findTeachers?search=" + name)
+			.then((response) => {
+				const data = response.data;
+				console.log(data);
+                setData(data);
+			})
+			.catch((error) => {
+				if (!error.response) {
+					// this.errorStatus = "Error: Network Error";
+				} else {
+					// this.errorStatus = error.response.data.message;
+				}
+			});
         }, 1000);
     };
     return (
@@ -72,7 +83,7 @@ const SearchFullPage = (props) => {
                                                 {item.name}
                                             </Link>
                                         }
-                                        description={item.department}
+                                        description={item.subject}
                                         avatar={
                                             <Avatar
                                                 src={item.image}

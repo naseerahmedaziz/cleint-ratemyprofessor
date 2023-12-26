@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import back2 from "../Assets/back2.png";
 import axios from 'axios';
+import store from './../redux/store'
 
 
 const AdminLogin = () => {
@@ -14,7 +15,9 @@ const AdminLogin = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log('handleLogin called');
     // Check if the provided credentials are correct
     // if (loginemail === 'admin@admin.com' && loginpassword === 'Pakistan@2') {
     //   console.log('Admin login successful. Navigating to /profile');
@@ -24,24 +27,33 @@ const AdminLogin = () => {
     //   toast.error('Invalid email or password');
     //   return;
     // }
-    axios.post('http://localhost:3000/adminLogin', {
-    email: loginemail,
-    password: loginpassword
+    axios.post('http://localhost:3000/admin/adminLogin', {
+      email: loginemail,
+      password: loginpassword
   })
   .then((response) => {
+    console.log("response", response, response.status);
     // Handle the response data
     // For example, if the login was successful, navigate to the admin page
-    if (response.data.success) {
+    if (response.status === 200) {
+    
       console.log('Admin login successful. Navigating to /admin');
       toast.success('Success!');
       navigate('/admin');
+     
+      // Save the token to Redux
+      const token = response.data.token; // Assuming the token is in response.data.token
+      store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // Dispatching action to save token
+      
+
     } else {
-      toast.error('Invalid email or password');
+      toast.error('Invalid email or password', response);
     }
   })
   .catch((error) => {
     // Handle the error
     toast.error('An error occurred while logging in');
+    console.error('Error during login:', error); // Logging the error using console.error for emphasis or with more context
   });
 
   };
@@ -70,7 +82,7 @@ const AdminLogin = () => {
             <a href="#">Forgot your password?</a>
             {error && <div className="Adminerror-message">{error}</div>}
             {success && <div className="Adminsuccess-message">{success}</div>}
-            <button className="but" onClick={handleLogin}>Login</button>
+            <button className="but" onClick={(e) => handleLogin(e)}>Login</button>
           </form>
       </div>
     </div>
