@@ -142,3 +142,27 @@ outline: none;
 .add-button:hover {
   transform: translateY(-55%) scale(1);
 }
+
+.Usererror-message {
+  background-color: #ffdddd;
+  color: rgb(128, 0, 6);
+  padding: 10px;
+  border: 1px solid #8b0000;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(139, 0, 0, 0.2);
+}
+
+.Usersuccess-message {
+  background-color: #ffdddd;
+  color: rgb(0, 128, 21);
+  padding: 10px;
+  border: 1px solid #acca03;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(139, 0, 0, 0.2);
+}

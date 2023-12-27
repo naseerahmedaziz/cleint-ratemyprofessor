@@ -11,6 +11,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Admin = () => {
@@ -81,7 +83,27 @@ const Admin = () => {
 		  .then((response) => {
 			const data = response.data;
 			getProfs();
-			setOpen(false);
+			
+			toast.success('Update successful', {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				style: {
+				  backgroundColor: "#ffffff",
+				  color: "rgb(0, 128, 21)",
+				  padding: "10px",
+				  border: "1px solid #acca03",
+				  borderRadius: "5px",
+				  marginTop: "10px",
+				  marginBottom: "10px",
+				  fontSize: "14px",
+				boxShadow: "0 4px 8px rgba(139, 0, 0, 0.2)",
+				},
+			  });
+			  setOpenUpdateDialog(false);
 		  })
 		  .catch((error) => {
 			console.log(error);
@@ -126,6 +148,25 @@ const Admin = () => {
 		  )
 		  .then(() => {
 			getProfs();
+			toast.success('Teacher added successfully', {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				style: {
+				  backgroundColor: "#ffffff",
+				  color: "rgb(0, 128, 21)",
+				  padding: "10px",
+				  border: "1px solid #acca03",
+				  borderRadius: "5px",
+				  marginTop: "10px",
+				  marginBottom: "10px",
+				  fontSize: "14px",
+				boxShadow: "0 4px 8px rgba(139, 0, 0, 0.2)",
+				},
+			  });
 			setOpenAddDialog(false);
 		  })
 		  .catch((error) => {
@@ -312,6 +353,7 @@ const Admin = () => {
           </Button>
         </DialogActions>
       </Dialog>
+	  <ToastContainer />
 		</div>
 		
 	  );
