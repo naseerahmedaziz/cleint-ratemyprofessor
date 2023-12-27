@@ -7,6 +7,8 @@ import './User.css';
 import back from "../Assets/back.png";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useSelector } from 'react-redux';
+
 
 const { Search } = Input;
 
@@ -16,6 +18,8 @@ const SearchFullPage = (props) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [display, setDisplay] = useState("d-none");
+    const token = useSelector(state => state.token);
+    console.log("this is token",token);
     const handleChange = (e) => {
         const name = e.target.value;
         name ? setDisplay() : setDisplay("d-none");
@@ -26,13 +30,18 @@ const SearchFullPage = (props) => {
         setTimeout(() => {
             setLoading(false);
             axios
-			.get("http://localhost:3000/users/findTeachers?search=" + name)
+			.get("http://localhost:3000/users/findTeachers?search=" + name, {
+                headers: {
+                 Authorization: `Bearer ${token}`
+                }
+              })
 			.then((response) => {
 				const data = response.data;
 				console.log(data);
                 setData(data);
 			})
 			.catch((error) => {
+                console.log('errr', error.message);
 				if (!error.response) {
 					// this.errorStatus = "Error: Network Error";
 				} else {
