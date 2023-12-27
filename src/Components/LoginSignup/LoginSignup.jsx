@@ -3,7 +3,7 @@ import './LoginSignup.css';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import back from "../Assets/back.png";
+import back2 from "../Assets/back2.png";
 import axios from 'axios';
 import store from './../redux/store'
 
@@ -31,6 +31,7 @@ const LoginSignup = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    console.log('handleLogin called');
     if (!loginemail || !loginpassword) {
       toast.error('All fields are required');
       return;
@@ -41,31 +42,39 @@ const LoginSignup = () => {
     }
     if (!validatePassword(loginpassword)) {
       toast.error(
-        'Password should be at least 8 characters long and contain one uppercase, one lowercase, a number, and a special character');
+        'Incorect Password');
       return;
     }
-    // Call the signup API
+    // Call the signin API
     axios.post('http://localhost:3000/users/signin', {
       email: loginemail,
       password: loginpassword
-    })
-    .then((response) => {
-      // Handle the response data
-      // For example, if the signup was successful, navigate to the profile page
-      if (response.data.success) {
-        console.log('Login Successful');
-        const token = response.data.token;
-        store.dispatch({ type: 'SAVE_TOKEN', payload: token }); 
-        navigate('/user');
-      } else {
-        toast.error(response.data.message);
-      }
-    })
-    .catch((error) => {
-      // Handle the error
-      console.log(error)
-      // toast.error('User Already Exists');
-    });
+  })
+  .then((response) => {
+    console.log("response", response, response.status);
+    // Handle the response data
+    // For example, if the login was successful, navigate to the admin page
+    if (response.status === 200 || response.status === 201) {
+    
+      console.log('User login successful. Navigating to /user');
+      toast.success('Success!');
+      navigate('/user');
+     
+      // Save the token to Redux
+       const token = response.data.token; // Assuming the token is in response.data.token
+       store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // Dispatching action to save token
+      
+
+    } else {
+      toast.error('Error', response);
+      console.error('Error during login:', error);
+    }
+  })
+  .catch((error) => {
+    toast.error('An error occurred while logging in');
+    console.error('Error during login:', error); // Logging the error using console.error for emphasis or with more context
+  });
+
   };
 
   
@@ -131,7 +140,7 @@ const LoginSignup = () => {
   return (
     <div className="ars-login-signup-cont">
       <img
-      src={back}
+      src={back2}
       alt="Back"
       className="back-button"
       onClick={() => navigate('/mainpage')} // Add this line to handle the back button click

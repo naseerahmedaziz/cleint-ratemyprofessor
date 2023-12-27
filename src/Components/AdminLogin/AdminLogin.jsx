@@ -42,8 +42,8 @@ const AdminLogin = () => {
       navigate('/admin');
      
       // Save the token to Redux
-      const token = response.data.token; // Assuming the token is in response.data.token
-      store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // Dispatching action to save token
+       const token = response.data.token; // Assuming the token is in response.data.token
+       store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // Dispatching action to save token
       
 
     } else {

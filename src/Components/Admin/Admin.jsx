@@ -10,6 +10,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import { useSelector } from 'react-redux';
+
 
 const Admin = () => {
 	const [profs, setProfs] = useState([]);
@@ -25,12 +27,17 @@ const Admin = () => {
   const [newSubject, setNewSubject] = useState("");
   const [newEmail, setNewEmail] = useState("");
 
-	useEffect(() => {
+  const token = useSelector(state => state.token);
+   useEffect(() => {
 		getProfs();
 	}, []);
 	const getProfs = () => {
 		axios
-			.get("http://localhost:3000/admin/getTeachers")
+		.get("http://localhost:3000/admin/getTeachers", {
+			headers: {
+			 Authorization: `Bearer ${token}`
+			}
+		  })
 			.then((response) => {
 				const data = response.data;
 				setProfs(data);
