@@ -20,12 +20,14 @@ const Admin = () => {
   const [updatedName, setUpdatedName] = useState("");
   const [updatedSubject, setUpdatedSubject] = useState("");
   const [updatedEmail, setUpdatedEmail] = useState("");
+  const [updatedUniversity, setUpdatedUniversity] = useState("");
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [openAddDialog, setOpenAddDialog] = useState(false); // State for the add dialog
   const [newName, setNewName] = useState(""); // State for the new teacher fields
   const [newSubject, setNewSubject] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [newUniversity, setNewUniversity] = useState("");
 
   const token = useSelector(state => state.token);
    useEffect(() => {
@@ -58,16 +60,24 @@ const Admin = () => {
 		setUpdatedSubject(prof.subject);
 		setUpdatedEmail(prof.email);
 		setOpenUpdateDialog(true);
+		setUpdatedUniversity(prof.university);
 	  };
-	
+	  
 	  const handleUpdateSubmit = () => {
 		// Perform the update request using axios
 		axios
-		  .put(`http://localhost:5000/profs/${selectedProf._id}`, {
+		  .patch(`http://localhost:3000/admin/editTeacher/${selectedProf._id}`, {
 			name: updatedName,
 			subject: updatedSubject,
 			email: updatedEmail,
-		  })
+			university: updatedUniversity,
+		},
+		{
+			headers: {
+			  Authorization: `Bearer ${token}`, // Add the token to your request headers
+			},
+		  }
+		  )
 		  .then((response) => {
 			const data = response.data;
 			getProfs();
@@ -100,11 +110,20 @@ const Admin = () => {
 	
 	  const handleAddSubmit = () => {
 		axios
-		  .post("http://localhost:3000/admin/teachers", {
-			name: newName,
-			subject: newSubject,
-			email: newEmail,
-		  })
+		.post(
+			"http://localhost:3000/admin/addTeacher",
+			{
+			  name: newName,
+			  subject: newSubject,
+			  email: newEmail,
+			  university: newUniversity,
+			},
+			{
+			  headers: {
+				Authorization: `Bearer ${token}`, // Add the token to your request headers
+			  },
+			}
+		  )
 		  .then(() => {
 			getProfs();
 			setOpenAddDialog(false);
@@ -178,6 +197,7 @@ const Admin = () => {
 							<h1>{prof.name}</h1>
 							<h3>{prof.subject}</h3>
 							<h4>{prof.email}</h4>
+							<h5>{prof.university}</h5>
 						  </div>
 						</div>
 					  ))
@@ -212,6 +232,15 @@ const Admin = () => {
             value={updatedEmail}
             onChange={(e) => setUpdatedEmail(e.target.value)}
           />
+		  <br />
+		  <label htmlFor="updatedUniversity">University:</label>
+		  <input 
+		  type="text"
+		  id="updatedUniversity"
+		  value={updatedUniversity}
+		  onChange={(e) => setUpdatedUniversity(e.target.value)}
+		/>
+
         </DialogContent>
         <DialogActions>
 		<Button onClick={handleCloseUpdateDialog} color="primary">
@@ -265,6 +294,14 @@ const Admin = () => {
             value={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
           />
+		  <br/>
+		  <label htmlFor="newUniversity">University:</label>
+		  <input
+			type="text"
+			id="newUniversity"
+			value={newUniversity}
+			onChange={(e) => setNewUniversity(e.target.value)}
+		  />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseAddDialog} color="primary">
