@@ -10,7 +10,7 @@ const MainPage = () => {
         <div className="main-page">
             <div className="welcome-container">
                 <h1>Welcome to</h1>
-                <h2>Rate My Teacher (RMT)</h2>
+                <h2>Rate My Professor (RMP)</h2>
             </div>
             <div className="option">
                 <h2>Admin</h2>

@@ -19,38 +19,11 @@ const { Title } = Typography;
 // Adjusted component with class names from CSS
 function SearchBarHome() {
     const navigate = useNavigate();
-    const notify = () => {
-        if (sessionStorage["badge"] === undefined) {
-            sessionStorage["badge"] = true;
-        }
-        if (sessionStorage["badge"] === "true") {
-            notification.info({
-                message: "Liked it? 😍",
-                description: (
-                    <React.Fragment>
-                        Star or contribute to this project on{" "}
-                        <a
-                            href="https://github.com/whoanuragverma/ratemyprof"
-                            target="_blank"
-                            rel="norefferer"
-                        >
-                            GitHub.
-                        </a>
-                    </React.Fragment>
-                ),
-                duration: 8,
-                icon: <GithubOutlined />,
-                placement: "bottomLeft",
-                closeIcon: " ",
-            });
-            sessionStorage["badge"] = false;
-        }
-    };
 
     return (
         <div className="ars-user-cont">
         <div className="utab">
-            Rate My Teacher (RMT)
+            Rate My Professor (RMP)
             <img
       src={profile}
       alt="Profile"

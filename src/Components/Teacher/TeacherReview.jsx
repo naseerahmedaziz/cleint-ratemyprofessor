@@ -10,6 +10,7 @@ import {
     Button,
 } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import './Teacher.css'; 
 
 const { TextArea } = Input;
 const ProfReview = (props) => {
@@ -270,20 +271,7 @@ const mockApiCall = () => {
     };
     return (
         <React.Fragment>
-            <div
-                style={{
-                    maxWidth: 650,
-                    width: "80%",
-                    margin: "20px auto",
-                    marginBottom: "5%",
-                    padding: 20,
-                    border: "1px solid #eeeeee",
-                    borderRadius: 10,
-                    background: "#ffffff",
-                    overflow: "auto",
-                    boxShadow: "5px 5px 15px 0px #cdcdcd91",
-                }}
-            >
+            <div className="ProfReview">
                 <Skeleton loading={loading}>{UserComments()}</Skeleton>
                 <Skeleton loading={loading}>{giveUserComments()}</Skeleton>
             </div>

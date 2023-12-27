@@ -1,0 +1,94 @@
+/* Add your global styles here, if any */
+
+/* TeacherDetail.jsx styles */
+.ProfDetail {
+    max-width: 650px;
+    width: 80%;
+    margin-top: 5%;
+    margin: 5% auto 0 auto;
+    padding: 20px;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: auto;
+    box-shadow: 5px 5px 15px 0px #cdcdcd91;
+    position: relative;
+    /* display: flex;
+    align-items: center; */
+  }
+  
+  /* TeacherRating.jsx styles */
+  .ProfRating {
+    max-width: 650px;
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: auto;
+    box-shadow: 5px 5px 15px 0px #cdcdcd91;
+  }
+  
+  /* TeacherReview.jsx styles */
+  .ProfReview {
+    max-width: 650px;
+    width: 80%;
+    margin: 20px auto 5%;
+    padding: 20px;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: auto;
+    box-shadow: 5px 5px 15px 0px #cdcdcd91;
+  }
+  
+  /* Common styles for skeleton loading */
+  .ant-skeleton {
+    margin: 20px 0;
+  }
+  
+  /* Common styles for centering elements */
+  .center {
+    text-align: center;
+  }
+  
+  /* Common styles for buttons */
+  .ant-btn-dashed {
+    top: -12px;
+  }
+
+  .reviewadd-button {
+    position: absolute;
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: transparent;
+    border-color: #000000;
+    color: #000000;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 6px 25px;
+    margin-left: 63.5%;
+    margin-top: 35px;
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+    transform: translateY(-50%) scale(1);
+  }
+  
+  .reviewadd-button:hover {
+    transform: translateY(-55%) scale(1);
+  }
+
+  .ProfDetail .draggable-avatar {
+    /* margin-right: 20px; */
+    margin-left: 50px;
+
+  } 
+
+  .ProfDetail .draggable-details {
+    padding-top: 1px; /* Adjust the padding as needed */
+  }
+  
+  

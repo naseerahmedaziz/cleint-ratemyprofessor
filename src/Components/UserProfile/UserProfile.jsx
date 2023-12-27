@@ -1,52 +1,104 @@
 import React, { useState } from 'react';
 import './UserProfile.css'; // Import your stylesheet
+import pic from '../Assets/pic.jpeg';
 
 const UserProfile = () => {
   const [activeSection, setActiveSection] = useState('#about');
+  const [profilefirstName, setprofileFirstName] = useState('');
+  const [profilelastname, setprofileLastName] = useState('');
+  const [profileemail, setprofileemail] = useState('');
+  const [profileuni, setprofileuni] = useState('');
 
   const handleButtonClick = (targetSection) => {
     setActiveSection(targetSection);
   };
 
+  const handleProfileFirstNameChange = (event) => {
+    setprofileFirstName(event.target.value);
+  };
+
+  const handleProfileLastNameChange = (event) => {
+    setprofileLastName(event.target.value);
+  };
+
+  const handleProfileEmailChange = (event) => {
+    setprofileemail(event.target.value);
+  };
+
+  const handleProfileUniChange = (event) => {
+    setprofileuni(event.target.value);
+  };
+
   return (
+    <div className="user-profile-container">
     <div className={`card ${activeSection === '#about' ? 'is-active' : ''}`} data-state={activeSection}>
       <div className="card-header">
         <div
           className="card-cover"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')",
+            background: `linear-gradient(to left right, #000000, #FF416C)`,
           }}
         ></div>
         <img
           className="card-avatar"
-          src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
+          src={pic}
           alt="avatar"
         />
-        <h1 className="card-fullname">William Rocheald</h1>
-        <h2 className="card-jobtitle">UI Developer</h2>
+
+        
       </div>
       <div className="card-main">
         <div className={`card-section ${activeSection === '#about' ? 'is-active' : ''}`} id="about">
-          {/* About Section Content */}
+        <h1 className="card-firstname">
+          First Name:
+            <input
+              type="text" placeholder="First Name" value={profilefirstName} onChange={handleProfileFirstNameChange}/>
+          </h1>
+          <h2 className="card-lastname">
+            Last Name:
+            <input
+              type="text"
+              value={profilelastname}
+              onChange={handleProfileLastNameChange}
+              placeholder="Last Name"
+            />
+          </h2>
+          <h3 className="card-email">
+            Email:
+            <input
+              type="email"
+              value={profileemail}
+              onChange={handleProfileEmailChange}
+              placeholder="Email"
+            />
+          </h3>
+          <h3 className="card-uni">
+            University:
+            <input
+              type="email"
+              value={profileuni}
+              onChange={handleProfileUniChange}
+              placeholder="University"
+            />
+          </h3>
         </div>
-        <div className={`card-section ${activeSection === '#experience' ? 'is-active' : ''}`} id="experience">
-          {/* Experience Section Content */}
+        {/* <div className={`card-section ${activeSection === '#experience' ? 'is-active' : ''}`} id="experience">
         </div>
         <div className={`card-section ${activeSection === '#contact' ? 'is-active' : ''}`} id="contact">
-          {/* Contact Section Content */}
-        </div>
+        </div> */}
         <div className="card-buttons">
           <button onClick={() => handleButtonClick('#about')} className={activeSection === '#about' ? 'is-active' : ''}>
-            ABOUT
+            PROFILE
           </button>
-          <button onClick={() => handleButtonClick('#experience')} className={activeSection === '#experience' ? 'is-active' : ''}>
+          {/* <button onClick={() => handleButtonClick('#experience')} className={activeSection === '#experience' ? 'is-active' : ''}>
             EXPERIENCE
           </button>
           <button onClick={() => handleButtonClick('#contact')} className={activeSection === '#contact' ? 'is-active' : ''}>
             CONTACT
-          </button>
+          </button> */}
         </div>
       </div>
+    </div>
     </div>
   );
 };

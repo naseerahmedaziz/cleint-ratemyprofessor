@@ -50,7 +50,7 @@ const SearchFullPage = (props) => {
       className="back-buttons"
       onClick={() => navigate('/user')} // Add this line to handle the back button click
     />
-                Rate My Teacher (RMT)
+                Rate My Professor (RMP)
             </div>
             
             <React.Fragment>

@@ -4,8 +4,12 @@ import BackDrop from '../backdrop';
 import ProfDetail from "./TeacherDetail";
 import ProfRating from "./TeacherRating";
 import ProfReview from "./TeacherReview";
+import './Teacher.css'; 
+import back2 from "../Assets/back2.png";
+import { useNavigate } from 'react-router-dom';
 
 const ProfMenu = ({ match, location }) => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const auth = localStorage.getItem("auth");
     const token = localStorage.getItem("token");
@@ -105,9 +109,17 @@ const ProfMenu = ({ match, location }) => {
           style={{
             height: "100vh", // Set the height to 100% of the viewport height
             overflowY: "auto", // Enable vertical scrolling
+            position: "relative"
           }}
         >
           <BackDrop />
+          <img
+      src={back2}
+      alt="Back"
+      className="back-button"
+      onClick={() => navigate('/usersearch')}
+    />
+          <button className="reviewadd-button" >Add review</button>
           <ProfDetail FID={id} />
           <ProfRating FID={id} />
           <ProfReview FID={id} />

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Typography, Avatar, Button, Space, Skeleton } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import './Teacher.css'; 
+
 const { Title, Text } = Typography;
 const ProfDetail = (props) => {
     const [res, setRes] = useState([]);
@@ -30,37 +32,18 @@ const ProfDetail = (props) => {
         });
       }, []);
     return (
-        <div
-            style={{
-                maxWidth: 650,
-                width: "80%",
-                marginTop: "5%",
-                margin: "5% auto 0 auto",
-                padding: 20,
-                border: "1px solid #eeeeee",
-                borderRadius: 10,
-                background: "#ffffff",
-                overflow: "auto",
-                boxShadow: "5px 5px 15px 0px #cdcdcd91",
-            }}
-        >
+        <div className="ProfDetail">
             <Row gutter={10} align="middle">
                 <Col lg={12} xs={24}>
                     <Space size="large">
-                        <Button
-                            type="dashed"
-                            onClick={() => (window.location.href = "/usersearch")}
-                        >
-                            <ArrowLeftOutlined />
-                        </Button>
                         <Skeleton
-                            avatar={{ size: 150, shape: "square" }}
+                            avatar={{ size: 150, shape: "square"}}
                             paragraph={{ rows: 0 }}
                             title={{ width: 0 }}
                             loading={loading}
                             active
                         >
-                            <Avatar src={res.image} shape="square" size={150} />
+                            <Avatar src={res.image} shape="square" size={150} className="draggable-avatar"/>
                         </Skeleton>
                     </Space>
                 </Col>
@@ -71,25 +54,23 @@ const ProfDetail = (props) => {
                     style={{ paddingTop: 10, fontSize: "1.1em" }}
                 >
                     <Skeleton loading={loading} active paragraph={{ rows: 5 }}>
-                        <Title level={4}>{res.name}</Title>
-                        {res.designation}
+                        <Title level={4} className="draggable-details">{res.name}</Title>
+                        <Text className="draggable-details">{res.designation}</Text>
                         <br />
-                        <b>Department: </b>
-                        {res.department}
+                        <b className="draggable-details">Subject: </b>
+                        <Text className="draggable-details">{res.department}</Text>
                         <br />
-                        <b>School: </b>
-                        {res.school}
+                        <b className="draggable-details">University: </b>
+                        <Text className="draggable-details">{res.school}</Text>
                         <br />
-                        <b>Cabin: </b>
-                        {res.cabin}
+                        <b className="draggable-details">Email: </b>
+                        <a
+                            href={`mailto:${res.email}`}
+                            className="draggable-details"
+                        >
+                            {res.email}
+                        </a>
                         <br />
-                        <b>Email: </b>
-                        <a href={`mailto:${res.email}`}>{res.email}</a>
-                        <br />
-                        <br />
-                        <Text type="secondary" style={{ fontSize: "0.8em" }}>
-                            {res._id}
-                        </Text>
                     </Skeleton>
                 </Col>
             </Row>

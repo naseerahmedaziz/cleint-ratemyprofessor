@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Skeleton, Button, Space } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import StarRatingComponent from "react-star-rating-component";
+import './Teacher.css'; 
+
 const ProfRating = (props) => {
     const [res, setRes] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -149,19 +151,7 @@ const mockApiCall = () => {
     };
     return (
         <React.Fragment>
-            <div
-                style={{
-                    maxWidth: 650,
-                    width: "80%",
-                    margin: "20px auto",
-                    padding: 20,
-                    border: "1px solid #eeeeee",
-                    borderRadius: 10,
-                    background: "#ffffff",
-                    overflow: "auto",
-                    boxShadow: "5px 5px 15px 0px #cdcdcd91",
-                }}
-            >
+            <div className="ProfRating">
                 <Row gutter={8} align="middle">
                     <Col lg={12} xs={24}>
                         <center>

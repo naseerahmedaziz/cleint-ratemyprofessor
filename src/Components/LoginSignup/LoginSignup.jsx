@@ -3,7 +3,7 @@ import './LoginSignup.css';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import back2 from "../Assets/back2.png";
+import back from "../Assets/back.png";
 import axios from 'axios';
 import store from './../redux/store'
 
@@ -131,7 +131,7 @@ const LoginSignup = () => {
   return (
     <div className="ars-login-signup-cont">
       <img
-      src={back2}
+      src={back}
       alt="Back"
       className="back-button"
       onClick={() => navigate('/mainpage')} // Add this line to handle the back button click
