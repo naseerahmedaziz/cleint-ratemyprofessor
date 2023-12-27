@@ -8,19 +8,27 @@ import ProfReview from "./TeacherReview";
 import './Teacher.css'; 
 import back2 from "../Assets/back2.png";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { useSelector } from 'react-redux';
 
 const { TextArea } = Input;
 
 const ProfMenu = ({ match, location }) => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const auth = localStorage.getItem("auth");
-    const token = localStorage.getItem("token");
+    const token = useSelector(state => state.token);
 
     const [detail, setDetail] = useState({});
+    const [reviewsAndRatings, setReviewsAndRatings] = useState({});
     const [rating, setRating] = useState([]);
     const [review, setReview] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    
+  //   if (!_id) {
+  //     console.error('Error: _id is undefined');
+  //     return null; // or handle the error in a way that makes sense for your application
+  // }
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -35,7 +43,44 @@ const ProfMenu = ({ match, location }) => {
         setIsModalVisible(false);
     };
 
-    // ... Your existing code
+
+    useEffect(() => {
+      const fetchTeacherDetails = async () => {
+          try {
+              const response = await axios.get(`http://localhost:3000/users/findTeacherByID/${id}`, {
+                  headers: {
+                      Authorization: `Bearer ${token}`
+                  }
+              });
+
+              console.log(response.data); // Log the data received from the API
+
+              setDetail(response.data);
+              setLoading(false); // Set loading to false after fetching data
+          } catch (error) {
+              console.error('Error fetching teacher details:', error);
+          }
+      };
+
+      const fetchReviewsAndRatings = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/reviews/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            console.log(response.data); // Log the data received from the API
+
+            setReviewsAndRatings(response.data);
+        } catch (error) {
+            console.error('Error fetching reviews and ratings:', error);
+        }
+    };
+
+    fetchTeacherDetails();
+    fetchReviewsAndRatings();
+  }, [id, token]);
 
     return (
         <div
@@ -53,9 +98,9 @@ const ProfMenu = ({ match, location }) => {
             onClick={() => navigate('/usersearch')}
           />
           <button className="reviewadd-button" onClick={showModal}>Add review</button>
-          <ProfDetail FID={id} />
-          <ProfRating FID={id} />
-          <ProfReview FID={id} />
+          <ProfDetail loading={loading} teacherDetails={detail} /> {/* Pass loading and teacherDetails to ProfDetail component */}
+          <ProfRating reviewsAndRatings={reviewsAndRatings} />
+          <ProfReview reviewsAndRatings={reviewsAndRatings} />
 
           {/* Add Review Modal */}
           <Modal

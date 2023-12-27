@@ -14,6 +14,7 @@ import './Teacher.css';
 
 const { TextArea } = Input;
 const ProfReview = (props) => {
+    const { reviewsAndRatings } = props;
     const [res, setRes] = useState([]);
     const [Name, setName] = useState("");
     const [loading, setLoading] = useState(true);
@@ -214,7 +215,9 @@ const mockApiCall = () => {
         }
     };
     const UserComments = () => {
-        if (res.length === 0) {
+        if (reviewsAndRatings && reviewsAndRatings.reviews) {
+            const reviews = reviewsAndRatings.reviews;
+            if (reviews.length === 0) {
             return (
                 <React.Fragment>
                     <center>No reviews yet. 😿 Write one now.</center>
@@ -268,7 +271,10 @@ const mockApiCall = () => {
                 </React.Fragment>
             );
         }
-    };
+    } else {
+        return null;
+    }
+};
     return (
         <React.Fragment>
             <div className="ProfReview">

@@ -5,6 +5,7 @@ import StarRatingComponent from "react-star-rating-component";
 import './Teacher.css'; 
 
 const ProfRating = (props) => {
+    const { reviewsAndRatings } = props;
     const [res, setRes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [butLoading, setbutLoading] = useState(false);
@@ -51,17 +52,15 @@ const mockApiCall = () => {
         setStarValue(nextValue);
     };
     const rating = () => {
-        if (res.length === 0) {
-            return "No ratings available";
-        } else {
-            res.forEach((element) => {
-                num = num + 1;
-                avg = avg + parseInt(element.rating);
-            });
+        if (reviewsAndRatings && reviewsAndRatings.ratings) {
+            // Extract ratings from reviewsAndRatings object
+            const ratings = reviewsAndRatings.ratings;
+            // Calculate and display average rating
+            const avgRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
             return (
                 <React.Fragment>
                     <span style={{ fontSize: 18, fontWeight: 400 }}>
-                        {avg / num}{" "}
+                    {avgRating.toFixed(2)} 
                     </span>
                     <svg
                         aria-hidden="true"
@@ -83,6 +82,8 @@ const mockApiCall = () => {
                     {num} Ratings
                 </React.Fragment>
             );
+        } else{
+            return "No ratings available";
         }
     };
     const postRating = () => {
