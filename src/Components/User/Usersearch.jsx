@@ -26,7 +26,7 @@ const SearchFullPage = (props) => {
         setTimeout(() => {
             setLoading(false);
             axios
-			.get("http://localhost:3000/admin/findTeachers?search=" + name)
+			.get("http://localhost:3000/users/findTeachers?search=" + name)
 			.then((response) => {
 				const data = response.data;
 				console.log(data);
