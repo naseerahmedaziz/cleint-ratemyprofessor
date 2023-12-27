@@ -88,7 +88,7 @@ const SearchFullPage = (props) => {
                                 <List.Item>
                                     <List.Item.Meta
                                         title={
-                                            <Link to={`/ID/${item.FID}`}>
+                                            <Link to={`/ID/${item._id}`}>
                                                 {item.name}
                                             </Link>
                                         }

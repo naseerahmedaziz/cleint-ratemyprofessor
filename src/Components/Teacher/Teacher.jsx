@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Modal, Form, Input, Rate } from "antd";
 import BackDrop from '../backdrop';
 import ProfDetail from "./TeacherDetail";
 import ProfRating from "./TeacherRating";
@@ -7,6 +8,8 @@ import ProfReview from "./TeacherReview";
 import './Teacher.css'; 
 import back2 from "../Assets/back2.png";
 import { useNavigate } from 'react-router-dom';
+
+const { TextArea } = Input;
 
 const ProfMenu = ({ match, location }) => {
     const navigate = useNavigate();
@@ -17,92 +20,22 @@ const ProfMenu = ({ match, location }) => {
     const [detail, setDetail] = useState({});
     const [rating, setRating] = useState([]);
     const [review, setReview] = useState([]);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const verifyToken = async (t) => {
-        await fetch("/api/verify", {
-            method: "GET",
-            headers: {
-                "x-access-token": t,
-            },
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (!res.response) {
-                    window.location.href = "/user";
-                }
-            });
+    const showModal = () => {
+        setIsModalVisible(true);
     };
 
-    if (auth !== "true") {
-        verifyToken(" ");
-    }
+    const handleOk = () => {
+        // Handle submission logic here
+        setIsModalVisible(false);
+    };
 
-    verifyToken(token);
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
-    useEffect(() => {
-        const mockApiCall = async () => {
-            const detailResult = await mockApiCallDetail();
-            const ratingResult = await mockApiCallRating();
-            const reviewResult = await mockApiCallReview();
-
-            setDetail(detailResult);
-            setRating(ratingResult);
-            setReview(reviewResult);
-        };
-
-        const mockApiCallDetail = () => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        _id: "1",
-                        name: "Professor A",
-                        designation: "Assistant Professor",
-                        department: "Computer Science",
-                        school: "School of Science",
-                        cabin: "123",
-                        email: "professor.a@example.com",
-                        //image: back,
-                    });
-                }, 1000);
-            });
-        };
-
-        const mockApiCallRating = () => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve([
-                        { UID: "user1", rating: 4 },
-                        { UID: "user2", rating: 5 },
-                        // Add more mock data as needed
-                    ]);
-                }, 1000);
-            });
-        };
-
-        const mockApiCallReview = () => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve([
-                        {
-                            UID: "user1",
-                            anonymous: false,
-                            review: "Great professor!",
-                            created_at: "2023-01-01T12:00:00Z",
-                        },
-                        {
-                            UID: "user2",
-                            anonymous: true,
-                            review: "Very helpful.",
-                            created_at: "2023-01-02T14:30:00Z",
-                        },
-                        // Add more mock data as needed
-                    ]);
-                }, 1000);
-            });
-        };
-
-        mockApiCall();
-    }, []);
+    // ... Your existing code
 
     return (
         <div
@@ -114,17 +47,49 @@ const ProfMenu = ({ match, location }) => {
         >
           <BackDrop />
           <img
-      src={back2}
-      alt="Back"
-      className="back-button"
-      onClick={() => navigate('/usersearch')}
-    />
-          <button className="reviewadd-button" >Add review</button>
+            src={back2}
+            alt="Back"
+            className="back-button"
+            onClick={() => navigate('/usersearch')}
+          />
+          <button className="reviewadd-button" onClick={showModal}>Add review</button>
           <ProfDetail FID={id} />
           <ProfRating FID={id} />
           <ProfReview FID={id} />
+
+          {/* Add Review Modal */}
+          <Modal
+            title="Add Review"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <Form
+              name="addReviewForm"
+              initialValues={{ rating: 0 }}
+              onFinish={handleOk}
+            >
+              <Form.Item
+                name="rating"
+                label="Rating"
+                rules={[{ required: true, message: 'Please give a rating!' }]}
+              >
+                <Rate />
+              </Form.Item>
+              <Form.Item
+                name="review"
+                label="Review"
+                rules={[{ required: true, message: 'Please provide a review!' }]}
+              >
+                <TextArea rows={4} />
+              </Form.Item>
+              <Form.Item>
+                <button type="submit">Submit Review</button>
+              </Form.Item>
+            </Form>
+          </Modal>
         </div>
-      );
+    );
 };
 
 export default ProfMenu;

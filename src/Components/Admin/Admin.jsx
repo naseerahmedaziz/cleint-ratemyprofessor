@@ -186,12 +186,12 @@ const Admin = () => {
                           className="uicon"
                           onClick={() => handleUpdate(prof)}
                         />
-                        <img
+                        {/* <img
                           src={DeleteIcon}
                           alt="Delete"
                           className="dicon"
                           onClick={() => handleDelete(prof)}
-                        />
+                        /> */}
                       </div>
 						  <div className="prof-name">
 							<h1>{prof.name}</h1>
