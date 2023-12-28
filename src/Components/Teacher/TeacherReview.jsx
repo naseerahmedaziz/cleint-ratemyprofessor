@@ -140,16 +140,7 @@ const mockApiCall = () => {
             });
     };
     const giveUserComments = () => {
-        fetch("/api/check_review", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": localStorage.getItem("token"),
-            },
-            body: JSON.stringify({ FID: props.FID }),
-        })
-            .then((res) => res.json())
-            .then((res) => sethasGivenReview(res.response));
+        
         if (!hasGivenReview) {
             return (
                 <React.Fragment>
