@@ -155,10 +155,7 @@ const mockApiCall = () => {
                 <React.Fragment>
                     <Divider style={{ margin: "10px 0 10px 0" }} />
                     <center>
-                        We limit the number of certain actions you perform on
-                        this site to prevent <b>spam</b>.<br />
-                        Looks like you have already written something. Currently
-                        we don't allow to edit reviews.
+                    Hope you find reviews helpful here
                     </center>
                 </React.Fragment>
             );
