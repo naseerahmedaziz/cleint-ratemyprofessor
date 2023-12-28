@@ -12,6 +12,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { useSelector } from 'react-redux';
 import store from './../redux/store'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Admin = () => {
@@ -24,8 +26,8 @@ const Admin = () => {
   const [updatedUniversity, setUpdatedUniversity] = useState("");
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
-  const [openAddDialog, setOpenAddDialog] = useState(false); // State for the add dialog
-  const [newName, setNewName] = useState(""); // State for the new teacher fields
+  const [openAddDialog, setOpenAddDialog] = useState(false); 
+  const [newName, setNewName] = useState("");
   const [newSubject, setNewSubject] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newUniversity, setNewUniversity] = useState("");
@@ -65,7 +67,6 @@ const Admin = () => {
 	  };
 	  
 	  const handleUpdateSubmit = () => {
-		// Perform the update request using axios
 		axios
 		  .patch(`http://localhost:3000/admin/editTeacher/${selectedProf._id}`, {
 			name: updatedName,
@@ -75,14 +76,33 @@ const Admin = () => {
 		},
 		{
 			headers: {
-			  Authorization: `Bearer ${token}`, // Add the token to your request headers
+			  Authorization: `Bearer ${token}`,
 			},
 		  }
 		  )
 		  .then((response) => {
 			const data = response.data;
 			getProfs();
-			setOpen(false);
+			toast.success('Update successful', {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				style: {
+				  backgroundColor: "#ffffff",
+				  color: "rgb(0, 128, 21)",
+				  padding: "10px",
+				  border: "1px solid #acca03",
+				  borderRadius: "5px",
+				  marginTop: "10px",
+				  marginBottom: "10px",
+				  fontSize: "14px",
+				  boxShadow: "0 4px 8px rgba(139, 0, 0, 0.2)",
+				},
+			  });
+			  setOpenUpdateDialog(false);
 		  })
 		  .catch((error) => {
 			console.log(error);
@@ -134,8 +154,6 @@ const Admin = () => {
 	  const handleAdd = () => {
 		setOpenAddDialog(true);
 	  };
-	
-	 // Admin.jsx
 
 const handleAddSubmit = () => {
   axios
@@ -149,17 +167,35 @@ const handleAddSubmit = () => {
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`, // Add the token to your request headers
+          Authorization: `Bearer ${token}`,
         },
       }
     )
     .then((response) => {
       getProfs();
+	  toast.success('Update successful', {
+		position: "top-right",
+		autoClose: 3000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		style: {
+		  backgroundColor: "#ffffff",
+		  color: "rgb(0, 128, 21)",
+		  padding: "10px",
+		  border: "1px solid #acca03",
+		  borderRadius: "5px",
+		  marginTop: "10px",
+		  marginBottom: "10px",
+		  fontSize: "14px",
+		  boxShadow: "0 4px 8px rgba(139, 0, 0, 0.2)",
+		},
+	  });
       setOpenAddDialog(false);
 
-      // Save the teacherId to Redux
-      const teacherId = response.data.teacherId; // Assuming the teacherId is in response.data.teacherId
-      store.dispatch({ type: 'SAVE_TEACHER_ID', payload: teacherId }); // Dispatching action to save teacherId
+      const teacherId = response.data.teacherId;
+      store.dispatch({ type: 'SAVE_TEACHER_ID', payload: teacherId });
     })
     .catch((error) => {
       console.log(error);
@@ -344,6 +380,7 @@ const handleAddSubmit = () => {
           </Button>
         </DialogActions>
       </Dialog>
+	  <ToastContainer />
 		</div>
 		
 	  );

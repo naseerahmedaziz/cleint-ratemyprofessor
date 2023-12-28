@@ -1,4 +1,3 @@
-// Import necessary components and styles
 import BackDrop from '../backdrop';
 import profile from "../Assets/profile.png";
 import './User.css';
@@ -16,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const { Title } = Typography;
 
 
-// Adjusted component with class names from CSS
+
 function SearchBarHome() {
     const navigate = useNavigate();
 

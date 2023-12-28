@@ -45,35 +45,28 @@ const LoginSignup = () => {
         'Incorect Password');
       return;
     }
-    // Call the signin API
     axios.post('http://localhost:3000/users/signin', {
       email: loginemail,
       password: loginpassword
   })
   .then((response) => {
     console.log("response", response, response.status);
-    // Handle the response data
-    // For example, if the login was successful, navigate to the admin page
     if (response.status === 200 || response.status === 201) {
     
       console.log('User login successful. Navigating to /user');
       toast.success('Success!');
       navigate('/user');
-     
-      // Save the token to Redux
-       const token = response.data.token; // Assuming the token is in response.data.token
-       store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // Dispatching action to save token
-
-    // Save the userId to Redux
+       const token = response.data.token;
+       store.dispatch({ type: 'SAVE_TOKEN', payload: token });
     const userId =  response.data.user._id; 
     
-    store.dispatch({ type: 'SAVE_USER_ID', payload: userId }); // Dispatching action to save userId
+    store.dispatch({ type: 'SAVE_USER_ID', payload: userId }); 
 
     const firstName = response.data.user.firstName;
     store.dispatch({ type: 'SAVE_FIRST_NAME', payload: firstName });
-    const lastName = response.data.user.lastName; // Replace with the actual path to the lastName in your API response
+    const lastName = response.data.user.lastName;
     store.dispatch({ type: 'SAVE_LAST_NAME', payload: lastName });
-    const email = response.data.user.email; // Replace with the actual path to the email in your API response
+    const email = response.data.user.email;
     store.dispatch({ type: 'SAVE_EMAIL', payload: email });
     
     
@@ -93,7 +86,7 @@ const LoginSignup = () => {
   })
   .catch((error) => {
     toast.error('An error occurred while logging in');
-    console.error('Error during login:', error); // Logging the error using console.error for emphasis or with more context
+    console.error('Error during login:', error); 
   });
 
   };
@@ -118,7 +111,6 @@ const LoginSignup = () => {
       return;
     }
   
-    // Call the signup API
     console.log(firstName)
     console.log(lastName)
     console.log(signemail)
@@ -130,19 +122,16 @@ const LoginSignup = () => {
       password: signpassword
     })
     .then((response) => {
-      // Handle the response data
-      // For example, if the signup was successful, navigate to the profile page
       if (response.statusText == "Created") {
         console.log('SignUp Successful');
         navigate('/user');
-        const token = response.data.token; // Assuming the token is in response.data.token
-        store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // 
+        const token = response.data.token;
+        store.dispatch({ type: 'SAVE_TOKEN', payload: token });  
       } else {
         toast.error(response.data.message);
       }
     })
     .catch((error) => {
-      // Handle the error
       console.log("Sdfds")
       toast.error('User Already Exists');
     });
@@ -164,7 +153,7 @@ const LoginSignup = () => {
       src={back2}
       alt="Back"
       className="back-button"
-      onClick={() => navigate('/mainpage')} // Add this line to handle the back button click
+      onClick={() => navigate('/mainpage')}
     />
       <div className={`Usercontainer ${isSignUp ? 'right-panel-active' : ''}`}>
         <ToastContainer />

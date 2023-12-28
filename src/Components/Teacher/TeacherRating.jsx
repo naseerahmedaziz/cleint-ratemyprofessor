@@ -20,20 +20,17 @@ const ProfRating = (props) => {
                 setLoading(false);
 
     };
-    // Add this inside the component, before the return statement
 const mockApiCall = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve([
           { UID: "user1", rating: 4 },
           { UID: "user2", rating: 5 },
-          // Add more mock data as needed
         ]);
       }, 1000);
     });
   };
   
-  // Replace the existing useEffect block with this one
   useEffect(() => {
     mockApiCall().then((result) => {
       setRes(result);
@@ -47,9 +44,9 @@ const mockApiCall = () => {
     
     const rating = () => {
         if (reviewsAndRatings && reviewsAndRatings.ratings) {
-            // Extract ratings from reviewsAndRatings object
+            
             const ratings = reviewsAndRatings.ratings;
-            // Calculate and display average rating
+          
             const avgRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
             return (
                 <React.Fragment>

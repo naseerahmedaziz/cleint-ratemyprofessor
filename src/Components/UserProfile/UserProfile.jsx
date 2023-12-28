@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import './UserProfile.css'; // Import your stylesheet
+import './UserProfile.css';
 import pic from '../Assets/pic.jpeg';
 import { useSelector   } from 'react-redux';
+import back2 from "../Assets/back2.png";
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
+  const navigate = useNavigate();
 
   const token = useSelector((state) => state.token);
   const userId = useSelector((state) => state.userId);
@@ -41,16 +44,22 @@ const UserProfile = () => {
   // const handleProfileUniChange = (event) => {
   //   setprofileuni(event.target.value);
   // };
-  // const firstName = useSelector(state => state.firstName); // Get firstName from Redux store
-  // const lastName = useSelector(state => state.lastName); // Get lastName from Redux store
-  // const email = useSelector(state => state.email); // Get email from Redux store
-  // const university = useSelector(state => state.university); // Get university from Redux store
+  // const firstName = useSelector(state => state.firstName); 
+  // const lastName = useSelector(state => state.lastName); 
+  // const email = useSelector(state => state.email); 
+  // const university = useSelector(state => state.university);
   const [activeSection, setActiveSection] = useState('#about');
 
 
 
   return (
     <div className="user-profile-container">
+      <img
+            src={back2}
+            alt="Back"
+            className="back-button"
+            onClick={() => navigate('/user')}
+          />
     <div className={`card ${activeSection === '#about' ? 'is-active' : ''}`} data-state={activeSection}>
       <div className="card-header">
         <div
@@ -75,7 +84,6 @@ const UserProfile = () => {
       <p>Last Name: {lastName}</p>
       <p>Email: {email}</p>
       <p>University: {university}</p> */}
-      {/* ... Your existing JSX */}
     </div>
         <h1 className="card-firstname">
           First Name:

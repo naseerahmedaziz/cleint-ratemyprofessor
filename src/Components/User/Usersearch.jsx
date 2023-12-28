@@ -24,9 +24,6 @@ const SearchFullPage = (props) => {
         const name = e.target.value;
         name ? setDisplay() : setDisplay("d-none");
         setLoading(true);
-
-        // Mock API call for illustration purposes
-        // Replace this with your actual API call
         setTimeout(() => {
             setLoading(false);
             axios
@@ -57,7 +54,7 @@ const SearchFullPage = (props) => {
       src={back}
       alt="Back"
       className="back-buttons"
-      onClick={() => navigate('/user')} // Add this line to handle the back button click
+      onClick={() => navigate('/user')} 
     />
                 Rate My Professor (RMP)
             </div>

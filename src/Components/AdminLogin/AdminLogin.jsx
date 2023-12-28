@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AdminLogin.css'; // Create a CSS file for AdminLogin if not already created
+import './AdminLogin.css'; 
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -33,17 +33,14 @@ const AdminLogin = () => {
   })
   .then((response) => {
     console.log("response", response, response.status);
-    // Handle the response data
-    // For example, if the login was successful, navigate to the admin page
     if (response.status === 200) {
     
       console.log('Admin login successful. Navigating to /admin');
       toast.success('Success!');
       navigate('/admin');
      
-      // Save the token to Redux
-       const token = response.data.token; // Assuming the token is in response.data.token
-       store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // Dispatching action to save token
+       const token = response.data.token;
+       store.dispatch({ type: 'SAVE_TOKEN', payload: token });
       
 
     } else {
@@ -52,7 +49,7 @@ const AdminLogin = () => {
   })
   .catch((error) => {
     toast.error('An error occurred while logging in');
-    console.error('Error during login:', error); // Logging the error using console.error for emphasis or with more context
+    console.error('Error during login:', error);
   });
 
   };
@@ -63,7 +60,7 @@ const AdminLogin = () => {
       src={back2}
       alt="Back"
       className="back-button"
-      onClick={() => navigate('/mainpage')} // Add this line to handle the back button click
+      onClick={() => navigate('/mainpage')}
     />
       <div className={"Admincontainer"}>
         <ToastContainer />

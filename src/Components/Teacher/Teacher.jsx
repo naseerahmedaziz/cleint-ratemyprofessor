@@ -21,7 +21,7 @@ const ProfMenu = ({ match, location }) => {
 
     const [detail, setDetail] = useState({});
     const [reviewsAndRatings, setReviewsAndRatings] = useState();
-    const [newRating, setNewRating] = useState(0); // State for the rating
+    const [newRating, setNewRating] = useState(0); 
     const [newReview, setNewReview] = useState('');
     const [loading, setLoading] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -74,10 +74,10 @@ const ProfMenu = ({ match, location }) => {
                   }
               });
 
-              console.log("data coming in", response.data.reviews); // Log the data received from the API
+              console.log("data coming in", response.data.reviews);
               setReviewsAndRatings(response.data.reviews);
               setDetail(response.data);
-              setLoading(false); // Set loading to false after fetching data
+              setLoading(false); 
           } catch (error) {
               console.error('Error fetching teacher details:', error);
           }
@@ -106,8 +106,8 @@ const ProfMenu = ({ match, location }) => {
     return (
         <div
           style={{
-            height: "100vh", // Set the height to 100% of the viewport height
-            overflowY: "auto", // Enable vertical scrolling
+            height: "100vh",
+            overflowY: "auto", 
             position: "relative"
           }}
         >
@@ -119,11 +119,10 @@ const ProfMenu = ({ match, location }) => {
             onClick={() => navigate('/usersearch')}
           />
           <button className="reviewadd-button" onClick={showModal}>Add review</button>
-          <ProfDetail loading={loading} teacherDetails={detail} /> {/* Pass loading and teacherDetails to ProfDetail component */}
+          <ProfDetail loading={loading} teacherDetails={detail} /> 
           <ProfRating reviewsAndRatings={reviewsAndRatings} />
           <ProfReview reviewsAndRatings={reviewsAndRatings} />
 
-          {/* Add Review Modal */}
           <Modal
             title="Add Review"
             visible={isModalVisible}

@@ -35,7 +35,7 @@ const ProfReview = (props) => {
                 setLoading(false);
             });
     };
-    // Add this inside the component, before the return statement
+    
 const mockApiCall = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -52,13 +52,13 @@ const mockApiCall = () => {
             review: "Very helpful.",
             created_at: "2023-01-02T14:30:00Z",
           },
-          // Add more mock data as needed
+          
         ]);
       }, 1000);
     });
   };
   
-  // Replace the existing useEffect block with this one
+  
   useEffect(() => {
     mockApiCall().then((result) => {
       setRes(result);
