@@ -17,11 +17,12 @@ const ProfMenu = ({ match, location }) => {
     const navigate = useNavigate();
     const { id } = useParams();
     const token = useSelector(state => state.token);
+    const userId = useSelector(state => state.userId);
 
     const [detail, setDetail] = useState({});
-    const [reviewsAndRatings, setReviewsAndRatings] = useState({});
-    const [rating, setRating] = useState([]);
-    const [review, setReview] = useState([]);
+    const [reviewsAndRatings, setReviewsAndRatings] = useState();
+    const [newRating, setNewRating] = useState(0); // State for the rating
+    const [newReview, setNewReview] = useState('');
     const [loading, setLoading] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
     
@@ -35,8 +36,28 @@ const ProfMenu = ({ match, location }) => {
     };
 
     const handleOk = () => {
-        // Handle submission logic here
-        setIsModalVisible(false);
+      axios
+      .post(
+          "http://localhost:3000/reviews/createReview",
+          {
+            userId: userId,
+            teacherId: id,
+            rating: newRating,
+            comment: newReview
+          },
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          }
+      )
+      .then((response) => {
+          console.log('Review added successfully', response);
+          setIsModalVisible(false);
+      })
+      .catch((error) => {
+          console.log('errror',error.response.data);
+      });
     };
 
     const handleCancel = () => {
@@ -53,8 +74,8 @@ const ProfMenu = ({ match, location }) => {
                   }
               });
 
-              console.log(response.data); // Log the data received from the API
-
+              console.log("data coming in", response.data.reviews); // Log the data received from the API
+              setReviewsAndRatings(response.data.reviews);
               setDetail(response.data);
               setLoading(false); // Set loading to false after fetching data
           } catch (error) {
@@ -62,24 +83,24 @@ const ProfMenu = ({ match, location }) => {
           }
       };
 
-      const fetchReviewsAndRatings = async () => {
-        try {
-            const response = await axios.get(`http://localhost:3000/reviews/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+    //   const fetchReviewsAndRatings = async () => {
+    //     try {
+    //         const response = await axios.get(`http://localhost:3000/reviews/${id}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         });
 
-            console.log(response.data); // Log the data received from the API
+    //         console.log(response.data); // Log the data received from the API
 
-            setReviewsAndRatings(response.data);
-        } catch (error) {
-            console.error('Error fetching reviews and ratings:', error);
-        }
-    };
+    //         setReviewsAndRatings(response.data);
+    //     } catch (error) {
+    //         console.error('Error fetching reviews and ratings:', error);
+    //     }
+    // };
 
     fetchTeacherDetails();
-    fetchReviewsAndRatings();
+    // fetchReviewsAndRatings();
   }, [id, token]);
 
     return (
@@ -108,31 +129,31 @@ const ProfMenu = ({ match, location }) => {
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
-          >
+        >
             <Form
-              name="addReviewForm"
-              initialValues={{ rating: 0 }}
-              onFinish={handleOk}
+                name="addReviewForm"
+                initialValues={{ rating: 0 }}
+                onFinish={handleOk}
             >
-              <Form.Item
-                name="rating"
-                label="Rating"
-                rules={[{ required: true, message: 'Please give a rating!' }]}
-              >
-                <Rate />
-              </Form.Item>
-              <Form.Item
-                name="review"
-                label="Review"
-                rules={[{ required: true, message: 'Please provide a review!' }]}
-              >
-                <TextArea rows={4} />
-              </Form.Item>
-              <Form.Item>
-                <button type="submit">Submit Review</button>
-              </Form.Item>
+                <Form.Item
+                    name="rating"
+                    label="Rating"
+                    rules={[{ required: true, message: 'Please give a rating!' }]}
+                >
+                    <Rate onChange={setNewRating} value={newRating} />
+                </Form.Item>
+                <Form.Item
+                    name="review"
+                    label="Review"
+                    rules={[{ required: true, message: 'Please provide a review!' }]}
+                >
+                    <TextArea rows={4} onChange={e => setNewReview(e.target.value)} value={newReview} />
+                </Form.Item>
+                <Form.Item>
+                    <button type="submit">Submit Review</button>
+                </Form.Item>
             </Form>
-          </Modal>
+        </Modal>
         </div>
     );
 };

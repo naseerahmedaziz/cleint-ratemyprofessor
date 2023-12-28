@@ -11,8 +11,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { useSelector } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import store from './../redux/store'
 
 
 const Admin = () => {
@@ -83,27 +82,7 @@ const Admin = () => {
 		  .then((response) => {
 			const data = response.data;
 			getProfs();
-			
-			toast.success('Update successful', {
-				position: "top-right",
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				style: {
-				  backgroundColor: "#ffffff",
-				  color: "rgb(0, 128, 21)",
-				  padding: "10px",
-				  border: "1px solid #acca03",
-				  borderRadius: "5px",
-				  marginTop: "10px",
-				  marginBottom: "10px",
-				  fontSize: "14px",
-				boxShadow: "0 4px 8px rgba(139, 0, 0, 0.2)",
-				},
-			  });
-			  setOpenUpdateDialog(false);
+			setOpen(false);
 		  })
 		  .catch((error) => {
 			console.log(error);
@@ -113,7 +92,8 @@ const Admin = () => {
 		setSelectedProf(prof);
 		setOpenDeleteDialog(true);
 	  };
-	
+	  
+	 
 	  const handleDeleteSubmit = () => {
 		axios
 		  .delete(`http://localhost:5000/profs/${selectedProf._id}`)
@@ -126,54 +106,65 @@ const Admin = () => {
 			console.log(error);
 		  });
 	  };
+
+	  //   const handleDeleteSubmit = () => {
+	// 	axios
+	// 	.post(
+	// 		"http://localhost:3000/users/deleteTeacher",
+	// 		{
+	// 		  userId: selectedProf._id,
+	// 		},
+	// 		{
+	// 		  headers: {
+	// 			Authorization: `Bearer ${token}`, // Add the token to your request headers
+	// 		  },
+	// 		}
+	// 	  )
+	// 	  .then((response) => {
+	// 		const data = response.data;
+	// 		getProfs();
+	// 		setOpenDeleteDialog(false);
+	// 	  })
+	// 	  .catch((error) => {
+	// 		console.log(error);
+	// 	  });
+	//   };
+	
+	
 	  const handleAdd = () => {
 		setOpenAddDialog(true);
 	  };
 	
-	  const handleAddSubmit = () => {
-		axios
-		.post(
-			"http://localhost:3000/admin/addTeacher",
-			{
-			  name: newName,
-			  subject: newSubject,
-			  email: newEmail,
-			  university: newUniversity,
-			},
-			{
-			  headers: {
-				Authorization: `Bearer ${token}`, // Add the token to your request headers
-			  },
-			}
-		  )
-		  .then(() => {
-			getProfs();
-			toast.success('Teacher added successfully', {
-				position: "top-right",
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				style: {
-				  backgroundColor: "#ffffff",
-				  color: "rgb(0, 128, 21)",
-				  padding: "10px",
-				  border: "1px solid #acca03",
-				  borderRadius: "5px",
-				  marginTop: "10px",
-				  marginBottom: "10px",
-				  fontSize: "14px",
-				boxShadow: "0 4px 8px rgba(139, 0, 0, 0.2)",
-				},
-			  });
-			setOpenAddDialog(false);
-		  })
-		  .catch((error) => {
-			console.log(error);
-		  });
-	  };
-	
+	 // Admin.jsx
+
+const handleAddSubmit = () => {
+  axios
+    .post(
+      "http://localhost:3000/admin/addTeacher",
+      {
+        name: newName,
+        subject: newSubject,
+        email: newEmail,
+        university: newUniversity,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the token to your request headers
+        },
+      }
+    )
+    .then((response) => {
+      getProfs();
+      setOpenAddDialog(false);
+
+      // Save the teacherId to Redux
+      const teacherId = response.data.teacherId; // Assuming the teacherId is in response.data.teacherId
+      store.dispatch({ type: 'SAVE_TEACHER_ID', payload: teacherId }); // Dispatching action to save teacherId
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 	  const handleCloseUpdateDialog = () => {
 		setOpenUpdateDialog(false);
 	  };
@@ -227,12 +218,12 @@ const Admin = () => {
                           className="uicon"
                           onClick={() => handleUpdate(prof)}
                         />
-                        {/* <img
+                        <img
                           src={DeleteIcon}
                           alt="Delete"
                           className="dicon"
                           onClick={() => handleDelete(prof)}
-                        /> */}
+                        />
                       </div>
 						  <div className="prof-name">
 							<h1>{prof.name}</h1>
@@ -353,7 +344,6 @@ const Admin = () => {
           </Button>
         </DialogActions>
       </Dialog>
-	  <ToastContainer />
 		</div>
 		
 	  );

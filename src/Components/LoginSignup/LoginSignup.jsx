@@ -63,6 +63,27 @@ const LoginSignup = () => {
       // Save the token to Redux
        const token = response.data.token; // Assuming the token is in response.data.token
        store.dispatch({ type: 'SAVE_TOKEN', payload: token }); // Dispatching action to save token
+
+    // Save the userId to Redux
+    const userId =  response.data.user._id; 
+    
+    store.dispatch({ type: 'SAVE_USER_ID', payload: userId }); // Dispatching action to save userId
+
+    const firstName = response.data.user.firstName;
+    store.dispatch({ type: 'SAVE_FIRST_NAME', payload: firstName });
+    const lastName = response.data.user.lastName; // Replace with the actual path to the lastName in your API response
+    store.dispatch({ type: 'SAVE_LAST_NAME', payload: lastName });
+    const email = response.data.user.email; // Replace with the actual path to the email in your API response
+    store.dispatch({ type: 'SAVE_EMAIL', payload: email });
+    
+    
+    
+    
+    
+    // store.dispatch({ type: 'SAVE_FIRST_NAME', payload: firstName });
+    // store.dispatch({ type: 'SAVE_LAST_NAME', payload: lastName });
+    // store.dispatch({ type: 'SAVE_EMAIL', payload: email });
+    // store.dispatch({ type: 'SAVE_UNIVERSITY', payload: university });
       
 
     } else {

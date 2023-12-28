@@ -6,6 +6,7 @@ import './Teacher.css';
 
 const ProfRating = (props) => {
     const { reviewsAndRatings } = props;
+    console.log('reviews here', reviewsAndRatings, props);
     const [res, setRes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [butLoading, setbutLoading] = useState(false);
@@ -14,18 +15,10 @@ const ProfRating = (props) => {
     const [hasPostedRating, sethasPostedRating] = useState();
     const [starValue, setStarValue] = useState(1);
     const view = () => {
-        fetch("/api/read_rating", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ FID: props.FID }),
-        })
-            .then((res) => res.json())
-            .then((res) => {
+       
                 setRes(res);
                 setLoading(false);
-            });
+
     };
     // Add this inside the component, before the return statement
 const mockApiCall = () => {
@@ -51,6 +44,7 @@ const mockApiCall = () => {
     const changeValue = (nextValue) => {
         setStarValue(nextValue);
     };
+    
     const rating = () => {
         if (reviewsAndRatings && reviewsAndRatings.ratings) {
             // Extract ratings from reviewsAndRatings object
@@ -88,67 +82,10 @@ const mockApiCall = () => {
     };
     const postRating = () => {
         setbutLoading(true);
-        fetch("/api/write_rating", {
-            method: "POST",
-            headers: {
-                "x-access-token": localStorage.getItem("token"),
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ FID: props.FID, rating: starValue }),
-        })
-            .then((res) => res.json())
-            .then((res) => view());
+        
     };
     const giveRating = () => {
-        fetch("/api/check_rating", {
-            method: "POST",
-            headers: {
-                "x-access-token": localStorage.getItem("token"),
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ FID: props.FID }),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                sethasPostedRating(res.response);
-            });
-        if (!hasPostedRating) {
-            return (
-                <React.Fragment>
-                    Looks like you have already rated.
-                    <br />
-                    Currently we don't allow to edit rating.{" "}
-                    <span role="img">😢</span>
-                </React.Fragment>
-            );
-        } else {
-            return (
-                <React.Fragment>
-                    <div style={{ fontSize: 36 }}>
-                        <Space size="middle">
-                            <StarRatingComponent
-                                name="rating"
-                                value={starValue}
-                                emptyStarColor="#d7d7d7"
-                                onStarClick={changeValue}
-                            />
-                            <br />
-                            <Button
-                                type="dashed"
-                                style={{ top: -12 }}
-                                onClick={postRating}
-                                loading={butLoading}
-                            >
-                                Post <ArrowRightOutlined />
-                            </Button>
-                        </Space>
-                        <p style={{ fontSize: 12 }}>
-                            Once you post the rating, you cannot edit it.
-                        </p>
-                    </div>
-                </React.Fragment>
-            );
-        }
+       
     };
     return (
         <React.Fragment>
